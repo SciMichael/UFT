@@ -26,7 +26,7 @@ Use commits pequenos e claros. Nunca coloque senhas, tokens ou chaves de API no 
 O projeto usa HTML, CSS e JavaScript no navegador e é compatível com GitHub Pages.
 
 ## Formulário
-O formulário está preparado para encaminhar sugestões ao endereço mdq.michael@gmail.com por serviço externo de formulário. Confirmar endereço e serviço antes da publicação institucional.
+O formulário está preparado para encaminhar sugestões ao endereço mdqmichael@gmail.com por serviço externo de formulário. Confirmar endereço e serviço antes da publicação institucional.
 
 ## Dados
 Os registros iniciais são uma base de demonstração. Indicadores, custos, prazos e links devem ser revisados pela equipe e confirmados nas fontes oficiais.
