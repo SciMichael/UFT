@@ -423,10 +423,20 @@ th,td{
   font-size:11px;
 }
 .technical-access{
-  color:rgba(255,255,255,.48);
+  display:inline-block;
+  color:rgba(255,255,255,.7);
   text-decoration:none;
+  padding:3px 7px;
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:5px;
+  font-size:10px;
+  letter-spacing:.02em;
 }
-.technical-access:hover{color:rgba(255,255,255,.8);text-decoration:underline}
+.technical-access:hover{
+  color:#fff;
+  border-color:rgba(255,255,255,.45);
+  background:rgba(255,255,255,.06);
+}
 
 .footer-bottom{
   display:flex;
