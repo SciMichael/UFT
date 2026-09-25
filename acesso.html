@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Área técnica | PPGAD UFT</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+.access-page{min-height:100vh;display:grid;place-items:center;padding:28px;background:var(--bg)}
+.access-card{width:min(980px,100%);background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:28px}
+.access-login{width:min(420px,100%);margin:0 auto}
+.access-card h1{margin:0;color:var(--green);font-size:30px}
+.access-card p{color:var(--muted)}
+.access-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.access-field{margin:0}
+.access-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.access-msg{min-height:22px;font-size:13px;color:#8a3d2e;margin:10px 0 0}
+.admin-panel{display:none}
+.admin-head{display:flex;justify-content:space-between;align-items:flex-start;gap:15px;margin-bottom:20px}
+.admin-head h1{margin:0}
+.admin-table-wrap{overflow:auto;border:1px solid var(--line);border-radius:12px}
+.admin-table{width:100%;min-width:1250px;border-collapse:collapse}
+.admin-table th,.admin-table td{padding:8px;border-bottom:1px solid var(--line);vertical-align:top}
+.admin-table input,.admin-table select{min-width:120px;min-height:38px}
+.admin-table textarea{min-width:220px;min-height:72px}
+.admin-toolbar{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:18px 0}
+.admin-toolbar .group{display:flex;gap:8px;flex-wrap:wrap}
+.admin-note{font-size:12px;background:var(--surface-soft);border:1px solid var(--line);padding:12px;border-radius:10px;margin:15px 0}
+.primary-admin{background:var(--green);color:#fff;border-color:var(--green)}
+.danger-admin{color:#8a3d2e}
+@media(max-width:700px){.access-grid{grid-template-columns:1fr}.access-card{padding:20px}}
+</style>
+</head>
+<body>
+<main class="access-page">
+  <section class="access-card">
+    <div id="login-view" class="access-login">
+      <span class="eyebrow">Área técnica</span>
+      <h1>Acesso</h1>
+      <p>Área restrita para atualização da base editorial do portal.</p>
+      <form id="login-form">
+        <label class="access-field" for="usuario">Usuário</label>
+        <input id="usuario" type="text" autocomplete="username" required>
+        <label class="access-field" for="senha">Senha</label>
+        <input id="senha" type="password" autocomplete="current-password" required>
+        <div class="access-actions"><button class="primary-admin" type="submit">Entrar</button><a class="btn" href="./">Voltar ao portal</a></div>
+        <p id="login-msg" class="access-msg"></p>
+      </form>
+    </div>
+
+    <div id="admin-panel" class="admin-panel">
+      <div class="admin-head">
+        <div>
+          <span class="eyebrow">Área técnica</span>
+          <h1>Base editorial</h1>
+          <p>Edite os dados abaixo e exporte a base atualizada.</p>
+        </div>
+        <button id="logout" type="button">Sair</button>
+      </div>
+
+      <div class="admin-note">
+        <strong>Importante:</strong> esta versão do portal é estática. As alterações feitas aqui ficam no navegador até serem exportadas. Use <strong>Baixar JSON</strong> para gerar a nova base e depois substituir o arquivo <code>assets/data/revistas.json</code> no repositório.
+      </div>
+
+      <div class="admin-toolbar">
+        <div class="group">
+          <button id="add" class="primary-admin" type="button">+ Nova revista</button>
+          <button id="save-local" type="button">Salvar no navegador</button>
+          <button id="reset" class="danger-admin" type="button">Restaurar base original</button>
+        </div>
+        <div class="group">
+          <button id="json" type="button">Baixar JSON</button>
+          <button id="xls" type="button">Baixar Excel (.xls)</button>
+          <button id="pdf" type="button">Imprimir / PDF</button>
+        </div>
+      </div>
+
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead><tr>
+            <th>Título</th><th>Editora</th><th>ISSN</th><th>Área</th><th>Escopo</th>
+            <th>Qualis</th><th>SJR</th><th>H</th><th>Percentil</th><th>Acesso</th>
+            <th>Taxa</th><th>Dias</th><th>Ficha</th><th>Instruções</th><th>Atualizado</th><th></th>
+          </tr></thead>
+          <tbody id="admin-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</main>
+<script type="module">
+const USER="UFT@1234";
+const PASS="UFT";
+const DATA_URL="assets/data/revistas.json";
+let original=null;
+let data=null;
+
+const $=id=>document.getElementById(id);
+const esc=v=>String(v??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+async function loadData(){
+  const local=localStorage.getItem("ppgad_admin_base");
+  if(local){try{data=JSON.parse(local);original=JSON.parse(local);return}catch{}}
+  const res=await fetch(DATA_URL,{cache:"no-store"});
+  if(!res.ok) throw new Error("Não foi possível carregar a base JSON.");
+  data=await res.json();
+  original=JSON.parse(JSON.stringify(data));
+}
+
+function row(r,i){
+ return "<tr>"+
+ [["titulo","text"],["editora","text"],["issn","text"],["area","text"],["escopo","textarea"],["qualis","text"],["sjr","text"],["h","number"],["percentil","number"],["acesso","text"],["taxa","number"],["dias","number"],["url_ficha","url"],["url_instrucoes","url"],["atualizado","text"]]
+ .map(([k,t])=>"<td><"+(t==="textarea"?"textarea":"input")+" data-i=""+i+"" data-k=""+k+"" type=""+(t==="textarea"?"":t)+"">"+(t==="textarea"?esc(r[k]):"")+"</"+(t==="textarea"?"textarea":"input")+"></td>").join("")+
+ "<td><button type="button" class="delete" data-i=""+i+"">Excluir</button></td></tr>";
+}
+
+function render(){
+ $("admin-body").innerHTML=(data.revistas||[]).map(row).join("");
+ document.querySelectorAll("#admin-body input,#admin-body textarea").forEach(el=>{
+   const r=data.revistas[+el.dataset.i]; el.value=r[el.dataset.k]??"";
+   el.addEventListener("input",()=>{let v=el.value;if(["h","percentil","taxa","dias"].includes(el.dataset.k))v=Number(v)||0;data.revistas[+el.dataset.i][el.dataset.k]=v;});
+ });
+ document.querySelectorAll(".delete").forEach(b=>b.onclick=()=>{data.revistas.splice(+b.dataset.i,1);render();});
+}
+
+function download(name,blob){const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500)}
+
+$("login-form").onsubmit=async e=>{
+ e.preventDefault();
+ if($("usuario").value===USER && $("senha").value===PASS){
+   sessionStorage.setItem("ppgad_admin_auth","1");
+   $("login-view").style.display="none";$("admin-panel").style.display="block";
+   try{await loadData();render()}catch(err){$("admin-panel").innerHTML="<p>"+esc(err.message)+"</p>"}
+ }else $("login-msg").textContent="Usuário ou senha inválidos.";
+};
+
+$("logout").onclick=()=>{sessionStorage.removeItem("ppgad_admin_auth");location.reload()};
+$("add").onclick=()=>{data.revistas.push({id:Date.now(),titulo:"Nova revista",editora:"",issn:"",area:"",escopo:"",qualis:"",sjr:"",h:0,percentil:0,acesso:"",taxa:0,dias:0,url_ficha:"",url_instrucoes:"",atualizado:""});render()};
+$("save-local").onclick=()=>{localStorage.setItem("ppgad_admin_base",JSON.stringify(data));alert("Base salva neste navegador.")};
+$("reset").onclick=()=>{if(confirm("Restaurar a base original e apagar a cópia local?")){localStorage.removeItem("ppgad_admin_base");location.reload()}};
+$("json").onclick=()=>download("revistas-ppgad.json",new Blob([JSON.stringify(data,null,2)],{type:"application/json;charset=utf-8"}));
+$("xls").onclick=()=>{
+ const cols=["titulo","editora","issn","area","escopo","qualis","sjr","h","percentil","acesso","taxa","dias","url_ficha","url_instrucoes","atualizado"];
+ const labels=["Título","Editora","ISSN","Área","Escopo","Qualis","SJR","H","Percentil","Acesso","Taxa","Dias","Ficha","Instruções","Atualizado"];
+ const rows=data.revistas.map(r=>"<tr>"+cols.map(c=>"<td>"+esc(r[c])+"</td>").join("")+"</tr>").join("");
+ const html="<html><head><meta charset='utf-8'><style>table{border-collapse:collapse}th,td{border:1px solid #999;padding:6px}</style></head><body><table><tr>"+labels.map(x=>"<th>"+x+"</th>").join("")+"</tr>"+rows+"</table></body></html>";
+ download("base-revistas-ppgad.xls",new Blob([html],{type:"application/vnd.ms-excel"}));
+};
+$("pdf").onclick=()=>{
+ const w=window.open("","_blank");
+ if(!w)return;
+ w.document.write("<html><head><meta charset='utf-8'><title>Base editorial PPGAD UFT</title><style>body{font:11px Arial;margin:20px}h1{color:#073f30}table{width:100%;border-collapse:collapse}th,td{border:1px solid #bbb;padding:5px;text-align:left}th{background:#e8f0ec}</style></head><body><h1>Base editorial — PPGAD/UFT</h1><p>Base atualizada: "+esc(data.baseAtualizada)+"</p><table><tr><th>Título</th><th>Editora</th><th>ISSN</th><th>Área</th><th>Qualis</th><th>SJR</th><th>H</th><th>Percentil</th><th>Acesso</th><th>Taxa</th><th>Dias</th></tr>"+data.revistas.map(r=>"<tr>"+["titulo","editora","issn","area","qualis","sjr","h","percentil","acesso","taxa","dias"].map(c=>"<td>"+esc(r[c])+"</td>").join("")+"</tr>").join("")+"</table><script>window.onload=()=>window.print()<\/script></body></html>");
+ w.document.close();
+};
+if(sessionStorage.getItem("ppgad_admin_auth")==="1"){
+ $("login-view").style.display="none";$("admin-panel").style.display="block";
+ loadData().then(render).catch(e=>{$("admin-panel").innerHTML="<p>"+esc(e.message)+"</p>"});
+}
+</script>
+</body>
+</html>
