@@ -381,6 +381,16 @@ th,td{
   opacity:.9;
 }
 .footer-brand strong{font-size:14px;color:#fff}
+.footer-objective{
+  max-width:820px;
+  padding:0 0 24px;
+}
+.footer-objective p{
+  margin:4px 0 0;
+  color:rgba(255,255,255,.68);
+  font-size:12px;
+  line-height:1.6;
+}
 .footer-brand p{margin:2px 0 0;font-size:11px;color:rgba(255,255,255,.58)}
 .footer-columns{
   display:grid;
