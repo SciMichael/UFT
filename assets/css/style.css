@@ -2,3 +2,28 @@
 .modal-backdrop{position:fixed;inset:0;background:rgba(20,32,27,.58);display:flex;align-items:center;justify-content:center;padding:18px;z-index:1000;backdrop-filter:blur(3px)}.modal-backdrop[hidden]{display:none}.modal{position:relative;width:min(680px,100%);max-height:92vh;overflow:auto;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px;box-shadow:0 24px 70px rgba(0,0,0,.22)}.modal h2{font-size:30px;margin:4px 45px 6px 0}.modal-intro{color:var(--mut);margin:0 0 18px}.modal-close{position:absolute;right:16px;top:14px;border:0;background:transparent;font-size:30px;line-height:1;padding:4px 9px;color:var(--mut)}.modal-close:hover{background:var(--chip);border-color:transparent}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}.modal textarea{width:100%;resize:vertical;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font:inherit}.modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:18px}.modal .primary{background:var(--g);color:#fff;border-color:var(--g)}.modal .primary:hover{opacity:.92}@media(max-width:600px){.modal{padding:20px}.form-grid{grid-template-columns:1fr}.modal h2{font-size:25px}}
 /* Formulário de sugestões — seção integrada à página */
 .suggest-section{margin:56px 0 0;padding:32px;background:var(--card);border:1px solid var(--line);border-radius:18px;scroll-margin-top:90px}.suggest-header{max-width:780px}.suggest-section h2{font-size:clamp(28px,4vw,38px);margin:6px 0 8px}.suggest-header p{color:var(--mut);font-size:16px;margin:0}.suggest-form{margin-top:26px}.suggest-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px 18px}.field label{font-size:13px;margin:0 0 8px;letter-spacing:.02em;text-transform:none;font-weight:600;color:var(--ink)}.field label span{color:var(--g)}.suggest-form input,.suggest-form textarea{width:100%;padding:14px 15px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);font:inherit;font-size:16px;line-height:1.45;min-height:50px}.suggest-form textarea{min-height:170px;resize:vertical}.suggest-form input::placeholder,.suggest-form textarea::placeholder{color:#87918b}.suggest-form input:focus,.suggest-form textarea:focus{border-color:var(--g);outline:2px solid rgba(11,91,69,.12);outline-offset:1px}.field-full{grid-column:1 / -1}.suggest-actions{display:flex;justify-content:flex-end;margin-top:22px}.suggest-submit{min-width:190px;padding:14px 22px;background:var(--g);color:#fff;border-color:var(--g);font-size:16px}.suggest-submit:hover{opacity:.92;color:#fff}.site-footer{margin-top:28px}@media(max-width:700px){.suggest-section{margin-top:40px;padding:22px 18px;border-radius:14px}.suggest-grid{grid-template-columns:1fr;gap:17px}.field-full{grid-column:auto}.suggest-actions{justify-content:stretch}.suggest-submit{width:100%;min-height:54px}.suggest-form input,.suggest-form textarea{font-size:16px;padding:14px}.suggest-section h2{font-size:28px}}
+
+/* Identidade visual PPGAD/UFT e formulário responsivo */
+:root{--bg:#f3f7f4;--card:#ffffff;--ink:#14261f;--mut:#52645c;--line:#d7e1db;--g:#064b39;--g2:#073b2f;--chip:#e8f1ec}
+body{background:var(--bg);color:var(--ink)}
+.site-header{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:14px 34px;background:var(--g2);border-bottom:4px solid #0a7558;position:sticky;top:0;z-index:50}
+.brand-lockup{display:flex;align-items:center;gap:14px;color:#fff;text-decoration:none;min-width:0}
+.ppgad-logo{width:58px;height:58px;object-fit:cover;border-radius:10px;box-shadow:0 4px 16px rgba(0,0,0,.22);flex:none}
+.brand-text{display:flex;flex-direction:column;line-height:1.15}
+.brand-text strong{font-family:Georgia,"Times New Roman",serif;font-size:25px;font-weight:500}
+.brand-text small{font-size:12px;color:rgba(255,255,255,.78);margin-top:5px}
+.site-header nav a{color:rgba(255,255,255,.9);padding:9px 12px;border-radius:8px}
+.site-header nav a:hover{background:rgba(255,255,255,.1);color:#fff}
+.program-badge{display:inline-flex;margin-top:28px;padding:7px 12px;border-radius:999px;background:#dcebe4;color:var(--g2);font-size:13px;font-weight:650}
+h1{color:var(--g2)}
+aside,.card,.suggest-section{box-shadow:0 6px 22px rgba(20,55,43,.05)}
+input[type=text],input[type=email],input[type=tel],select,textarea{width:100%;padding:13px 14px;min-height:50px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);font:inherit;font-size:16px;line-height:1.4}
+input[type=range]{width:100%;accent-color:var(--g)}
+input[type=text]:focus,input[type=email]:focus,input[type=tel]:focus,select:focus,textarea:focus{border-color:var(--g);outline:3px solid rgba(6,75,57,.13);outline-offset:1px}
+.suggest-section{background:#fafffc;border:1px solid #cfe0d7}
+.suggest-section h2{color:var(--g2)}
+.suggest-form input,.suggest-form textarea{min-height:54px;border-color:#cbd8d1;font-size:17px}
+.suggest-form textarea{min-height:190px}
+.suggest-submit{background:var(--g2);border-color:var(--g2);min-height:56px;border-radius:10px;font-weight:700}
+@media(max-width:900px){.site-header{align-items:flex-start;flex-direction:column;padding:12px 18px}.site-header nav{width:100%;overflow-x:auto;padding-bottom:2px}.site-header nav a{white-space:nowrap}.ppgad-logo{width:52px;height:52px}.brand-text strong{font-size:22px}}
+@media(max-width:700px){main{padding-left:16px;padding-right:16px}.program-badge{margin-top:20px}.suggest-form input,.suggest-form textarea{font-size:16px;min-height:54px}.suggest-form textarea{min-height:190px}.suggest-submit{width:100%}}
