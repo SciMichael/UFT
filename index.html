@@ -3,96 +3,196 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>PPGAD UFT | Revistas e Repositórios</title><meta name="description" content="Portal de apoio à publicação científica do PPGAD/UFT.">
+<title>PPGAD UFT | Revistas e Repositórios</title>
+<meta name="description" content="Portal de apoio à publicação científica do Programa de Pós-Graduação em Agroenergia Digital da UFT.">
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+
 <header class="site-header">
-  <a class="brand-lockup" href="#revistas" aria-label="PPGAD UFT — início">
-    <img class="ppgad-logo" src="https://docs.uft.edu.br/share/proxy/alfresco-noauth/api/internal/shared/node/UI5_A5t5TrCZ39Srrs4OSQ/content/PPGAD_Sigla.png" alt="Logotipo do Programa de Pós-Graduação em Agroenergia Digital — PPGAD">
-    <span class="brand-text"><strong>PPGAD UFT</strong><small>Portal de apoio à publicação científica</small></span>
-  </a>
-  <nav>
-    <a href="#" id="nav-rev" class="on">Revistas</a>
-    <a href="#comparar" id="nav-cmp">Comparar</a>
-    <a href="#sugerir" id="nav-sugerir">Sugerir revista</a>
-    <a href="#">Guia de uso</a>
-    <a href="#">Sobre</a>
-  </nav>
+  <div class="header-inner">
+    <a class="brand-lockup" href="#inicio" aria-label="PPGAD UFT — início">
+      <img class="ppgad-logo" src="https://docs.uft.edu.br/share/proxy/alfresco-noauth/api/internal/shared/node/UI5_A5t5TrCZ39Srrs4OSQ/content/PPGAD_Sigla.png" alt="Logotipo do Programa de Pós-Graduação em Agroenergia Digital — PPGAD">
+      <span class="brand-text">
+        <strong>PPGAD · UFT</strong>
+        <small>Publicação científica</small>
+      </span>
+    </a>
+    <nav aria-label="Navegação principal">
+      <a href="#revistas" class="on">Revistas</a>
+      <a href="#comparar">Comparar</a>
+      <a href="#sugerir">Sugerir</a>
+    </nav>
+  </div>
 </header>
 
-<main>
-  <div class="program-badge">Programa de Pós-Graduação em Agroenergia Digital · Câmpus de Palmas</div>
-  <h1>Onde submeter seu artigo, com os indicadores na mesma tela</h1><p><strong>Sob orientação do Prof. Dr. Guilherme Benko Siqueira.</strong> Desenvolvimento: Michael e Nibert, alunos do PPGAD/UFT.</p>
-  <p class="lead">Catálogo de revistas alinhadas às áreas do PPGAD, com percentil do índice H acima da mediana da categoria, quartil SJR, Qualis, custo de publicação e tempo até a publicação. Base atualizada em <span id="base-data"></span>.</p>
+<main id="inicio">
+  <section class="intro">
+    <div class="program-kicker">Programa de Pós-Graduação em Agroenergia Digital · Câmpus de Palmas</div>
+    <h1>Encontre revistas para publicar seu artigo.</h1>
+    <p class="lead">Consulte indicadores, filtros e informações editoriais em uma única página para apoiar sua escolha de periódico.</p>
+  </section>
 
-  <div class="layout" id="revistas">
-    <aside aria-label="Filtros">
-      <label for="q">Busca por palavra-chave</label>
-      <input type="text" id="q" placeholder="título, escopo, editora, ISSN">
-      <label for="area">Área</label>
-      <select id="area"><option value="">Todas as áreas</option></select>
-      <label for="perc">Percentil mínimo do índice H: <span id="perc-v">50</span></label>
-      <input type="range" id="perc" min="0" max="100" value="50">
-      <div class="two">
-        <div><label for="sjr">Quartil SJR</label><select id="sjr"><option value="">Todos</option><option>Q1</option><option>Q2</option><option>Q3</option><option>Q4</option></select></div>
-        <div><label for="qualis">Qualis</label><select id="qualis"><option value="">Todos</option></select></div>
+  <section class="catalog-section" id="revistas" aria-labelledby="titulo-revistas">
+    <div class="section-heading">
+      <div>
+        <span class="eyebrow">Catálogo</span>
+        <h2 id="titulo-revistas">Revistas acadêmicas</h2>
       </div>
-      <label for="acesso">Modelo de acesso</label>
-      <select id="acesso"><option value="">Todos</option></select>
-      <label for="taxa">Taxa de publicação até <span id="taxa-v"></span></label>
-      <input type="range" id="taxa" min="0" step="100">
-      <label for="dias">Tempo até publicação até <span id="dias-v"></span></label>
-      <input type="range" id="dias" min="0" step="1">
-      <button type="button" id="limpar">Limpar filtros</button>
-    </aside>
+      <span class="data-note">Base atualizada em <span id="base-data"></span></span>
+    </div>
 
-    <section aria-live="polite">
-      <div class="bar">
-        <span id="count"></span>
-        <div>
-          <select id="ord" aria-label="Ordenar">
-            <option value="h">Ordenar: maior percentil H</option>
-            <option value="nome">Ordenar: nome (A–Z)</option>
-            <option value="taxa">Ordenar: menor taxa</option>
-            <option value="dias">Ordenar: menor prazo</option>
-          </select>
-          <button type="button" id="csv">Exportar CSV</button>
+    <div class="layout">
+      <aside aria-label="Filtros">
+        <div class="filter-title">Filtrar resultados</div>
+
+        <label for="q">Busca por palavra-chave</label>
+        <input type="text" id="q" placeholder="título, escopo, editora, ISSN">
+
+        <label for="area">Área</label>
+        <select id="area"><option value="">Todas as áreas</option></select>
+
+        <label for="perc">Percentil mínimo do índice H: <span id="perc-v">50</span></label>
+        <input type="range" id="perc" min="0" max="100" value="50">
+
+        <div class="two">
+          <div>
+            <label for="sjr">Quartil SJR</label>
+            <select id="sjr">
+              <option value="">Todos</option>
+              <option>Q1</option><option>Q2</option><option>Q3</option><option>Q4</option>
+            </select>
+          </div>
+          <div>
+            <label for="qualis">Qualis</label>
+            <select id="qualis"><option value="">Todos</option></select>
+          </div>
         </div>
-      </div>
-      <div id="lista"></div>
-    </section>
-  </div>
 
-  <section id="comparar">
-    <h2 style="font-size:28px;margin:32px 0 12px">Comparar revistas</h2>
+        <label for="acesso">Modelo de acesso</label>
+        <select id="acesso"><option value="">Todos</option></select>
+
+        <label for="taxa">Taxa de publicação até <span id="taxa-v"></span></label>
+        <input type="range" id="taxa" min="0" step="100">
+
+        <label for="dias">Tempo até publicação até <span id="dias-v"></span></label>
+        <input type="range" id="dias" min="0" step="1">
+
+        <button type="button" id="limpar" class="filter-clear">Limpar filtros</button>
+      </aside>
+
+      <section aria-live="polite">
+        <div class="bar">
+          <span id="count"></span>
+          <div class="bar-actions">
+            <select id="ord" aria-label="Ordenar">
+              <option value="h">Ordenar: maior percentil H</option>
+              <option value="nome">Ordenar: nome (A–Z)</option>
+              <option value="taxa">Ordenar: menor taxa</option>
+              <option value="dias">Ordenar: menor prazo</option>
+            </select>
+            <button type="button" id="csv">Exportar CSV</button>
+          </div>
+        </div>
+        <div id="lista"></div>
+      </section>
+    </div>
+  </section>
+
+  <section class="compare-section" id="comparar" aria-labelledby="titulo-comparar">
+    <div class="section-heading">
+      <div>
+        <span class="eyebrow">Análise</span>
+        <h2 id="titulo-comparar">Comparar revistas</h2>
+      </div>
+      <span class="section-help">Selecione revistas no catálogo para comparar.</span>
+    </div>
     <div class="scroll" id="cmp-tabela"></div>
   </section>
-<section id="sugerir" class="suggest-section" aria-labelledby="sugerir-titulo">
-  <div class="suggest-header">
-    <div>
-      <div class="eyebrow">Contribua com o catálogo</div>
+
+  <section id="sugerir" class="suggest-section" aria-labelledby="sugerir-titulo">
+    <div class="suggest-header">
+      <span class="eyebrow">Contribua com o catálogo</span>
       <h2 id="sugerir-titulo">Sugerir revista ou correção</h2>
-      <p>Encontrou uma revista, repositório ou informação que merece ser incluída ou corrigida? Envie sua sugestão diretamente por este formulário.</p>
+      <p>Encontrou uma revista, repositório ou informação que merece ser incluída ou corrigida? Envie sua sugestão por este formulário.</p>
+    </div>
+
+    <form class="suggest-form" action="https://formsubmit.co/mdqmichael@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="Sugestão para o portal PPGAD UFT">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="true">
+      <input type="hidden" name="_next" value="https://agroenergia.github.io/UFT/">
+
+      <div class="suggest-grid">
+        <div class="field">
+          <label for="nome">Nome completo <span>*</span></label>
+          <input id="nome" name="nome" type="text" required autocomplete="name" placeholder="Digite seu nome completo">
+        </div>
+        <div class="field">
+          <label for="email">E-mail <span>*</span></label>
+          <input id="email" name="email" type="email" required autocomplete="email" placeholder="voce@exemplo.com">
+        </div>
+        <div class="field">
+          <label for="telefone">Telefone</label>
+          <input id="telefone" name="telefone" type="tel" autocomplete="tel" placeholder="(00) 00000-0000">
+        </div>
+        <div class="field">
+          <label for="instituicao">Instituição / vínculo</label>
+          <input id="instituicao" name="instituicao" type="text" placeholder="UFT, universidade, empresa etc.">
+        </div>
+        <div class="field field-full">
+          <label for="revista">Revista, periódico ou repositório sugerido</label>
+          <input id="revista" name="revista" type="text" placeholder="Nome, ISSN ou link oficial">
+        </div>
+        <div class="field field-full">
+          <label for="mensagem">Mensagem / detalhes da sugestão <span>*</span></label>
+          <textarea id="mensagem" name="mensagem" rows="6" required placeholder="Explique o que deseja sugerir, corrigir ou acrescentar."></textarea>
+        </div>
+      </div>
+
+      <div class="suggest-actions">
+        <button type="submit" class="primary suggest-submit">Enviar sugestão</button>
+      </div>
+    </form>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img class="footer-logo" src="https://docs.uft.edu.br/share/proxy/alfresco-noauth/api/internal/shared/node/UI5_A5t5TrCZ39Srrs4OSQ/content/PPGAD_Sigla.png" alt="" aria-hidden="true">
+      <div>
+        <strong>PPGAD · UFT</strong>
+        <p>Portal de apoio à publicação científica.</p>
+      </div>
+    </div>
+
+    <div class="footer-columns">
+      <section>
+        <span class="footer-label">Liderança do projeto</span>
+        <strong>Prof. Dr. Guilherme Benko de Siqueira</strong>
+        <small>Professor e líder/orientador do projeto</small>
+      </section>
+
+      <section>
+        <span class="footer-label">Desenvolvimento</span>
+        <strong>Michael · Nibert</strong>
+        <small>Alunos do PPGAD/UFT</small>
+      </section>
+
+      <section>
+        <span class="footer-label">Contato</span>
+        <a href="tel:+5548996390391">(48) 99639-0391</a>
+        <small>Contato do projeto</small>
+      </section>
+    </div>
+
+    <div class="footer-bottom">
+      <span>Programa de Pós-Graduação em Agroenergia Digital · Universidade Federal do Tocantins</span>
+      <span>Dados de contato adicionais podem ser incluídos quando autorizados pelos participantes.</span>
     </div>
   </div>
-  <form class="suggest-form" action="https://formsubmit.co/mdqmichael@gmail.com" method="POST">
-    <input type="hidden" name="_subject" value="Sugestão para o portal PPGAD UFT">
-    <input type="hidden" name="_template" value="table">
-    <input type="hidden" name="_captcha" value="true">
-    <input type="hidden" name="_next" value="https://agroenergia.github.io/UFT/">
-    <div class="suggest-grid">
-      <div class="field"><label for="nome">Nome completo <span>*</span></label><input id="nome" name="nome" type="text" required autocomplete="name" placeholder="Digite seu nome completo"></div>
-      <div class="field"><label for="email">E-mail <span>*</span></label><input id="email" name="email" type="email" required autocomplete="email" placeholder="voce@exemplo.com"></div>
-      <div class="field"><label for="telefone">Telefone</label><input id="telefone" name="telefone" type="tel" autocomplete="tel" placeholder="(00) 00000-0000"></div>
-      <div class="field"><label for="instituicao">Instituição / vínculo</label><input id="instituicao" name="instituicao" type="text" placeholder="UFT, universidade, empresa etc."></div>
-      <div class="field field-full"><label for="revista">Revista, periódico ou repositório sugerido</label><input id="revista" name="revista" type="text" placeholder="Nome, ISSN ou link oficial"></div>
-      <div class="field field-full"><label for="mensagem">Mensagem / detalhes da sugestão <span>*</span></label><textarea id="mensagem" name="mensagem" rows="7" required placeholder="Explique o que deseja sugerir, corrigir ou acrescentar. Você pode informar links, indicadores, fontes e observações."></textarea></div>
-    </div>
-    <div class="suggest-actions"><button type="submit" class="primary suggest-submit">Enviar sugestão</button></div>
-  </form>
-</section>
-</main>
+</footer>
 
 <script type="module" src="assets/js/app.js?v=20260925"></script>
 </body>
